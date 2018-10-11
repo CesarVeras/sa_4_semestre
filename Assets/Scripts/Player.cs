@@ -4,28 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using Exception = System.Exception;
 
-public class Player : Entity {
-   
+public class Player : Entity
+{
+
     // stats
     protected int money;
     protected int bombs;
     public float luck;
+    public bool colidingWithEnemy;
 
     // components
     private Rigidbody2D rb;
 
     // extra things
+    public float iframeTimeHelper;
+    public float iframe = .5f; // invencibility frame
     public float timeHelper;
 
+    // gameobject
     public Transform ammoDispenser;
     public GameObject Ammo;
+    public Image lifeImage;
+    public Text coinText;
+
     private GameObject newAmmo;
     private AmmoControl scriptAmmo;
 
-    public Image lifeImage;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         // set default values
         totalLifes = 6;
         money = 0;
@@ -37,24 +45,33 @@ public class Player : Entity {
         shotSpeed = 5.5f;
         speed = 5f;
         luck = 0;
+        colidingWithEnemy = false;
+        CheckEverything();
 
         rb = GetComponent<Rigidbody2D>();
         ammoDispenser = ammoDispenser.transform;
         firingState = Firing.NoFiring;
         timeHelper = Time.time;
-        if (lifeImage == null)
-        {
-            throw new Exception("É preciso definir uma imagem para a barra de vida");
-        }
+        iframeTimeHelper = Time.time;
+
+        lifeImage.fillAmount = (float)lifes / totalLifes;
+        coinText.text = money.ToString();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         // moviment control
         MovementControl();
 
         // firing control
         FiringControl();
+
+        // enemy coliding management
+        if (colidingWithEnemy)
+        {
+            TakeDamage();
+        }
     }
 
     private void CreateAmmo()
@@ -140,9 +157,56 @@ public class Player : Entity {
 
     public override void TakeDamage()
     {
-        if (lifes > 0)
+        if (Time.time - iframeTimeHelper >= iframe)
         {
-            lifeImage.fillAmount = (float)--lifes / totalLifes;
+            if (lifes > 0)
+            {
+                lifes--;
+                iframeTimeHelper = Time.time;
+                lifeImage.fillAmount = (float)lifes / totalLifes;
+            }
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            colidingWithEnemy = true;
+        }
+    }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            colidingWithEnemy = false;
+        }
+    }
+
+    public void CheckEverything()
+    {
+        /*
+            public Transform ammoDispenser;
+            public GameObject Ammo;
+            public Image lifeImage;
+            public Text coinText;
+        */
+        if (ammoDispenser == null)
+        {
+            throw new Exception("É preciso informar um local para instanciar as balas (ammoDispenser)");
+        }
+        if (Ammo == null)
+        {
+            throw new Exception("É preciso informar um prefab de bala para instanciar as balas (Ammo)");
+        }
+        if (lifeImage == null)
+        {
+            throw new Exception("É preciso informar um imagem para mostrar a vida (lifeImage)");
+        }
+        if (coinText == null)
+        {
+            throw new Exception("É preciso informar um texto para mostrar as moedas (coinText)");
         }
     }
 }
