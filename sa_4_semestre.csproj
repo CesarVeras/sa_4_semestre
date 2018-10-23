@@ -243,6 +243,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AmmoControl.cs" />
     <Compile Include="Assets\Scripts\CientificNumber.cs" />
+    <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\Item.cs" />

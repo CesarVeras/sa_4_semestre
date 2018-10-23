@@ -4,4 +4,7 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/isaac_like_scene_1.unity
+    guid: 02b2e162eb4fe9740a708dbe1d36b443

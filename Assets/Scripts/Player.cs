@@ -41,7 +41,7 @@ public class Player : Entity
         lifes = totalLifes;
         damage = 3.5f;
         range = 3f;
-        fireRate = 0.3f;
+        fireRate = 0.5f;
         shotSpeed = 5.5f;
         speed = 5f;
         luck = 0;
@@ -165,6 +165,11 @@ public class Player : Entity
                 iframeTimeHelper = Time.time;
                 lifeImage.fillAmount = (float)lifes / totalLifes;
             }
+            else if (lifes <= 0)
+            {
+                Application.Quit();
+                UnityEditor.EditorApplication.isPlaying = false;    
+            }
         }
     }
 
@@ -208,5 +213,30 @@ public class Player : Entity
         {
             throw new Exception("É preciso informar um texto para mostrar as moedas (coinText)");
         }
+    }
+    public void AddMoney(int amountMoney)
+    {
+        SetMoney(amountMoney + money);
+    }
+
+    public void SetMoney(int amountMoney)
+    {
+        money = amountMoney;
+        coinText.text = money.ToString();
+    }
+
+    public int GetMoney()
+    {
+        return money;
+    }
+
+    public void SetBombs(int amountBombs)
+    {
+        bombs = amountBombs;
+    }
+
+    public int GetBombs()
+    {
+        return bombs;
     }
 }

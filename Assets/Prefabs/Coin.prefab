@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 212316627625196600}
   - component: {fileID: 61223298202636434}
   - component: {fileID: 50487801136111354}
+  - component: {fileID: 58798497216249686}
+  - component: {fileID: 114444246288917646}
   m_Layer: 10
   m_Name: Coin
   m_TagString: Untagged
@@ -56,12 +58,27 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!58 &58798497216249686
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1507948547003530}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.75
 --- !u!61 &61223298202636434
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -87,6 +104,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!114 &114444246288917646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1507948547003530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260f22aafcc15ad49bb15488ff20fe6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212316627625196600
 SpriteRenderer:
   m_ObjectHideFlags: 1
