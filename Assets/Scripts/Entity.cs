@@ -8,8 +8,8 @@ public abstract class Entity : MonoBehaviour
     protected enum Firing { NoFiring, FiringLeft, FiringRight, FiringUp, FiringDown }
 
     // stats
-    protected int totalLifes;
-    protected int lifes;
+    protected float totalLifes;
+    protected float lifes;
 
     protected float damage;
     protected float range;
@@ -20,8 +20,32 @@ public abstract class Entity : MonoBehaviour
     protected bool canFire;
 
     protected Firing firingState;
-    
+
     public abstract void MovementControl();
     public abstract void FiringControl();
     public abstract void TakeDamage();
+
+    public float Lifes
+    {
+        get
+        {
+            return lifes;
+        }
+        set
+        {
+            lifes = value;
+        }
+    }
+
+    public float Damage
+    {
+        get
+        {
+            return damage;
+        }
+
+        set {
+            damage = value;
+        }
+    }
 }

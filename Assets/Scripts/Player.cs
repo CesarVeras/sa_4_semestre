@@ -20,6 +20,7 @@ public class Player : Entity
     public float iframeTimeHelper;
     public float iframe = .5f; // invencibility frame
     public float timeHelper;
+    public int damageTaken;
 
     // gameobject
     public Transform ammoDispenser;
@@ -35,7 +36,7 @@ public class Player : Entity
     void Start()
     {
         // set default values
-        totalLifes = 6;
+        totalLifes = 12;
         money = 0;
         bombs = 1;
         lifes = totalLifes;
@@ -54,7 +55,7 @@ public class Player : Entity
         timeHelper = Time.time;
         iframeTimeHelper = Time.time;
 
-        lifeImage.fillAmount = (float)lifes / totalLifes;
+        lifeImage.fillAmount = lifes / totalLifes;
         coinText.text = money.ToString();
     }
 
@@ -161,14 +162,14 @@ public class Player : Entity
         {
             if (lifes > 0)
             {
-                lifes--;
+                lifes -= damageTaken;
                 iframeTimeHelper = Time.time;
-                lifeImage.fillAmount = (float)lifes / totalLifes;
+                lifeImage.fillAmount = lifes / totalLifes;
             }
-            else if (lifes <= 0)
+            if (lifes <= 0)
             {
                 Application.Quit();
-                UnityEditor.EditorApplication.isPlaying = false;    
+                UnityEditor.EditorApplication.isPlaying = false;
             }
         }
     }
@@ -178,6 +179,7 @@ public class Player : Entity
         if (collision.gameObject.CompareTag("Enemy"))
         {
             colidingWithEnemy = true;
+            damageTaken = (int)collision.gameObject.GetComponent<Enemy>().Damage;
         }
     }
 
@@ -186,6 +188,7 @@ public class Player : Entity
         if (collision.gameObject.CompareTag("Enemy"))
         {
             colidingWithEnemy = false;
+            damageTaken = 0;
         }
     }
 
@@ -214,29 +217,38 @@ public class Player : Entity
             throw new Exception("É preciso informar um texto para mostrar as moedas (coinText)");
         }
     }
+    public int Money
+    {
+        get
+        {
+            return money;
+        }
+
+        set
+        {
+            money = value;
+        }
+    }
+
+    public int Bombs
+    {
+        get
+        {
+            return bombs;
+        }
+
+        set
+        {
+            bombs = value;
+        }
+    }
+
     public void AddMoney(int amountMoney)
     {
-        SetMoney(amountMoney + money);
+        Money += amountMoney;
     }
 
-    public void SetMoney(int amountMoney)
-    {
-        money = amountMoney;
-        coinText.text = money.ToString();
-    }
-
-    public int GetMoney()
-    {
-        return money;
-    }
-
-    public void SetBombs(int amountBombs)
-    {
-        bombs = amountBombs;
-    }
-
-    public int GetBombs()
-    {
-        return bombs;
+    public void AddBombs(int amountBombs) {
+        Bombs += amountBombs;
     }
 }

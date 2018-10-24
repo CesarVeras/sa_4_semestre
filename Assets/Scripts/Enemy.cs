@@ -49,6 +49,7 @@ public class Enemy : Entity
         var diff = player.transform.position - transform.position;
         switch (behaviour)
         {
+            case Behaviour.Revive:
             case Behaviour.FollowPlayer:
                 rb.velocity = (player.transform.position - transform.position).normalized * speed;
                 break;
@@ -76,7 +77,7 @@ public class Enemy : Entity
     {
         totalLifes = 20;
         lifes = totalLifes;
-        damage = 3.5f;
+        damage = 1f;
         range = 3f;
         fireRate = 0.3f;
         shotSpeed = 5.5f;
@@ -135,7 +136,7 @@ public class Enemy : Entity
         GetComponent<SpriteRenderer>().color = verm;
         transform.localScale = new Vector2(transform.localScale.x - transform.localScale.x * .3f, transform.localScale.y - transform.localScale.y * .3f);
         speed *= 4;
-        damage *= 1.5f;
+        damage *= 2;
         lifes = ((totalLifes / 5) <= 0) ? 1 : totalLifes / 5;
     }
 }

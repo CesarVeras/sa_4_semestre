@@ -6,5 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/isaac_like_scene_1.unity
+    path: Assets/Scenes/menu.unity
+    guid: ea8c1c18ebf5037409cfc55f5293ed79
+  - enabled: 1
+    path: Assets/Scenes/gameplay.unity
     guid: 02b2e162eb4fe9740a708dbe1d36b443
+  m_configObjects: {}
