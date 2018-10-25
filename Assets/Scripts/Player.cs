@@ -8,28 +8,27 @@ public class Player : Entity
 {
 
     // stats
-    protected int money;
-    protected int bombs;
-    public float luck;
-    public bool colidingWithEnemy;
+    [HideInInspector] public int money;
+    [HideInInspector] public int bombs;
+    [HideInInspector] public float luck;
+    private bool colidingWithEnemy;
+    private float iframe = .5f; // invencibility frame
 
     // components
     private Rigidbody2D rb;
 
-    // extra things
-    public float iframeTimeHelper;
-    public float iframe = .5f; // invencibility frame
-    public float timeHelper;
-    public int damageTaken;
+    // helpers
+    private float timeHelper; // keeps track of the time between shots.
+    private float iframeTimeHelper; // keeps track of the time between iframes. 
 
     // gameobject
     public Transform ammoDispenser;
-    public GameObject Ammo;
+    public GameObject AmmoPrefab;
     public Image lifeImage;
     public Text coinText;
 
     private GameObject newAmmo;
-    private AmmoControl scriptAmmo;
+    private Ammo scriptAmmo;
 
 
     // Use this for initialization
@@ -79,24 +78,25 @@ public class Player : Entity
     {
         if (Time.time - timeHelper >= fireRate)
         {
-            newAmmo = Instantiate(Ammo, ammoDispenser.position, Quaternion.identity);
-            scriptAmmo = newAmmo.GetComponent<AmmoControl>();
+            newAmmo = Instantiate(AmmoPrefab, ammoDispenser.position, Quaternion.identity);
+            scriptAmmo = newAmmo.GetComponent<Ammo>();
+            scriptAmmo.damage = this.damage;
             scriptAmmo.firingRange = range;
             scriptAmmo.firingSpeed = shotSpeed;
             scriptAmmo.initialPosition = ammoDispenser.position;
             switch (firingState)
             {
                 case Firing.FiringLeft:
-                    scriptAmmo.firingDirection = AmmoControl.Direction.GoingLeft;
+                    scriptAmmo.firingDirection = Ammo.Direction.GoingLeft;
                     break;
                 case Firing.FiringRight:
-                    scriptAmmo.firingDirection = AmmoControl.Direction.GoingRight;
+                    scriptAmmo.firingDirection = Ammo.Direction.GoingRight;
                     break;
                 case Firing.FiringUp:
-                    scriptAmmo.firingDirection = AmmoControl.Direction.GoingUp;
+                    scriptAmmo.firingDirection = Ammo.Direction.GoingUp;
                     break;
                 case Firing.FiringDown:
-                    scriptAmmo.firingDirection = AmmoControl.Direction.GoingDown;
+                    scriptAmmo.firingDirection = Ammo.Direction.GoingDown;
                     break;
             }
             timeHelper = Time.time;
@@ -179,7 +179,7 @@ public class Player : Entity
         if (collision.gameObject.CompareTag("Enemy"))
         {
             colidingWithEnemy = true;
-            damageTaken = (int)collision.gameObject.GetComponent<Enemy>().Damage;
+            damageTaken = (int)collision.gameObject.GetComponent<Enemy>().damage;
         }
     }
 
@@ -192,63 +192,44 @@ public class Player : Entity
         }
     }
 
+    public void AddMoney(int amountMoney)
+    {
+        money += amountMoney;
+        coinText.text = money.ToString();
+    }
+
+    public void AddBombs(int amountBombs)
+    {
+        bombs += amountBombs;
+    }
+
     public void CheckEverything()
     {
         /*
             public Transform ammoDispenser;
-            public GameObject Ammo;
+            public GameObject AmmoPrefab;
             public Image lifeImage;
             public Text coinText;
         */
         if (ammoDispenser == null)
         {
+            UnityEditor.EditorApplication.isPlaying = false;
             throw new Exception("É preciso informar um local para instanciar as balas (ammoDispenser)");
         }
-        if (Ammo == null)
+        if (AmmoPrefab == null)
         {
+            UnityEditor.EditorApplication.isPlaying = false;
             throw new Exception("É preciso informar um prefab de bala para instanciar as balas (Ammo)");
         }
         if (lifeImage == null)
         {
+            UnityEditor.EditorApplication.isPlaying = false;
             throw new Exception("É preciso informar um imagem para mostrar a vida (lifeImage)");
         }
         if (coinText == null)
         {
+            UnityEditor.EditorApplication.isPlaying = false;
             throw new Exception("É preciso informar um texto para mostrar as moedas (coinText)");
         }
-    }
-    public int Money
-    {
-        get
-        {
-            return money;
-        }
-
-        set
-        {
-            money = value;
-        }
-    }
-
-    public int Bombs
-    {
-        get
-        {
-            return bombs;
-        }
-
-        set
-        {
-            bombs = value;
-        }
-    }
-
-    public void AddMoney(int amountMoney)
-    {
-        Money += amountMoney;
-    }
-
-    public void AddBombs(int amountBombs) {
-        Bombs += amountBombs;
     }
 }

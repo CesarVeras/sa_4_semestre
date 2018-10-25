@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212278023509464194}
   - component: {fileID: 58831774681681782}
   - component: {fileID: 50994512043440320}
-  - component: {fileID: 114679746513231192}
+  - component: {fileID: 114276894014655210}
   m_Layer: 11
   m_Name: Ammo
   m_TagString: Untagged
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1234287110826374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.61, z: 0}
+  m_LocalPosition: {x: 2.484912, y: -2.1728878, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114679746513231192
+--- !u!114 &114276894014655210
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,9 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234287110826374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afced95c254f3e04baf76ddb1211be26, type: 3}
+  m_Script: {fileID: 11500000, guid: ee3353882411ae34b86cd03e972af0f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   firingDirection: 2
   firingSpeed: 0
   firingRange: 0

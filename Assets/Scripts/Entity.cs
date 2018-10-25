@@ -5,47 +5,24 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     // enums
-    protected enum Firing { NoFiring, FiringLeft, FiringRight, FiringUp, FiringDown }
+    [HideInInspector] public enum Firing { NoFiring, FiringLeft, FiringRight, FiringUp, FiringDown }
 
     // stats
-    protected float totalLifes;
-    protected float lifes;
+    [HideInInspector] public float totalLifes;
+    [HideInInspector] public float lifes;
+    [HideInInspector] public float damage;
+    [HideInInspector] public float range;
+    [HideInInspector] public float fireRate;
+    [HideInInspector] public float shotSpeed;
+    [HideInInspector] public float speed;
 
-    protected float damage;
-    protected float range;
-    protected float fireRate;
-    protected float shotSpeed;
-    protected float speed;
+    // helper stats
+    [HideInInspector] public float damageTaken;
+    [HideInInspector] public bool canFire;
 
-    protected bool canFire;
-
-    protected Firing firingState;
+    [HideInInspector] public Firing firingState;
 
     public abstract void MovementControl();
     public abstract void FiringControl();
     public abstract void TakeDamage();
-
-    public float Lifes
-    {
-        get
-        {
-            return lifes;
-        }
-        set
-        {
-            lifes = value;
-        }
-    }
-
-    public float Damage
-    {
-        get
-        {
-            return damage;
-        }
-
-        set {
-            damage = value;
-        }
-    }
 }

@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class Enemy : Entity
 {
     // enums
-    public enum Behaviour { FollowPlayer, FleeFromPlayer, FleeAndRandom, Revive }
+    public enum Behaviour { FollowPlayer, FleeFromPlayer, FleeAndRandom, Revive, Firing }
 
     // stats
-    public float followDistance = 5;
+    public float randomDistance = 5; // the radius for the enemy start to be random
     public Behaviour behaviour;
+    public float shootChance;
+    public float shootSpeed;
+    
+    // helpers
+    private float shootHelper;
 
     // components
     public Rigidbody2D rb;
@@ -30,6 +35,7 @@ public class Enemy : Entity
     // Use this for initialization
     void Start()
     {
+        shootHelper = Time.time;
         // set default values
         ResetEnemy();
         if (player == null)
@@ -46,7 +52,7 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        var diff = player.transform.position - transform.position;
+        var difference = player.transform.position - transform.position;
         switch (behaviour)
         {
             case Behaviour.Revive:
@@ -56,8 +62,11 @@ public class Enemy : Entity
             case Behaviour.FleeFromPlayer:
                 rb.velocity = (player.transform.position - transform.position).normalized * -speed;
                 break;
+            case Behaviour.Firing:
+                Shoot();
+                goto case Behaviour.FleeAndRandom;
             case Behaviour.FleeAndRandom:
-                if (diff.magnitude > followDistance)
+                if (difference.magnitude > randomDistance)
                 {
                     float x = Mathf.PerlinNoise(Time.time, seed1) * 2 - 1;
                     float y = Mathf.PerlinNoise(Time.time, seed2) * 2 - 1;
@@ -138,5 +147,18 @@ public class Enemy : Entity
         speed *= 4;
         damage *= 2;
         lifes = ((totalLifes / 5) <= 0) ? 1 : totalLifes / 5;
+    }
+
+    public void Shoot()
+    {
+        if (Time.time - shootHelper >= shootSpeed)
+        {
+            float chance = Random.value * 100;
+            if (chance <= shootChance)
+            {
+                print("Inimigo atirando");
+                shootHelper = Time.time;
+            }
+        }
     }
 }

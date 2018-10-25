@@ -7,15 +7,16 @@ using UnityEngine.SceneManagement;
 public class SceneControl : MonoBehaviour
 {
     // panels
-    public GameObject PanelWin, PanelLose;
+    public GameObject PanelWin, PanelLose, PanelCredits;
 
     public void GoToMenu()
     {
+
         SceneManager.LoadScene("menu");
         Time.timeScale = 1f;
     }
 
-    public void GoToMenuGamePlay()
+    public void GoToGamePlay()
     {
         SceneManager.LoadScene("gameplay");
         Time.timeScale = 1f;
@@ -40,5 +41,10 @@ public class SceneControl : MonoBehaviour
         PanelWin.SetActive(false);
         PanelLose.SetActive(true);
 
+    }
+
+    public void SetCreditsVisibility(bool visible)
+    {
+        PanelCredits.SetActive(visible);
     }
 }
