@@ -132,6 +132,7 @@ public class Enemy : Entity
                 newEnemy.GetComponent<Enemy>().Revive(newEnemy);
             }
         }
+        FindObjectOfType<SceneControl>().DecreaseEnemyCount();
     }
 
     public void Revive(GameObject enemy)

@@ -20,6 +20,7 @@ public class Player : Entity
     // helpers
     private float timeHelper; // keeps track of the time between shots.
     private float iframeTimeHelper; // keeps track of the time between iframes. 
+    private SceneControl sceneControl;
 
     // gameobject
     public Transform ammoDispenser;
@@ -47,6 +48,8 @@ public class Player : Entity
         luck = 0;
         colidingWithEnemy = false;
         CheckEverything();
+
+        sceneControl = FindObjectOfType<SceneControl>();
 
         rb = GetComponent<Rigidbody2D>();
         ammoDispenser = ammoDispenser.transform;
@@ -168,8 +171,9 @@ public class Player : Entity
             }
             if (lifes <= 0)
             {
-                Application.Quit();
-                UnityEditor.EditorApplication.isPlaying = false;
+                sceneControl.OpenLoseScreen();
+                // Application.Quit();
+                // UnityEditor.EditorApplication.isPlaying = false;
             }
         }
     }

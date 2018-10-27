@@ -8,10 +8,18 @@ public class SceneControl : MonoBehaviour
 {
     // panels
     public GameObject PanelWin, PanelLose, PanelCredits;
+    public int enemyCount;
+
+    public void Update()
+    {
+        if (enemyCount <= 0)
+        {
+            OpenWinScreen();
+        }
+    }
 
     public void GoToMenu()
     {
-
         SceneManager.LoadScene("menu");
         Time.timeScale = 1f;
     }
@@ -46,5 +54,10 @@ public class SceneControl : MonoBehaviour
     public void SetCreditsVisibility(bool visible)
     {
         PanelCredits.SetActive(visible);
+    }
+
+    public void DecreaseEnemyCount()
+    {
+        enemyCount--;
     }
 }
