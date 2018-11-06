@@ -16,6 +16,16 @@ public class SceneControl : MonoBehaviour
         {
             OpenWinScreen();
         }
+
+        if (PanelLose == null)
+        {
+            PanelLose = GameObject.Find("PanelLose");
+        }
+
+        if (PanelWin == null)
+        {
+            PanelWin = GameObject.Find("PanelWin");
+        }
     }
 
     public void GoToMenu()

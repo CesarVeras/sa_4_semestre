@@ -47,7 +47,6 @@ public class Player : Entity
         speed = 5f;
         luck = 0;
         colidingWithEnemy = false;
-        CheckEverything();
 
         sceneControl = FindObjectOfType<SceneControl>();
 
@@ -59,6 +58,8 @@ public class Player : Entity
 
         lifeImage.fillAmount = lifes / totalLifes;
         coinText.text = money.ToString();
+        
+        RunTests();
     }
 
     // Update is called once per frame
@@ -207,14 +208,9 @@ public class Player : Entity
         bombs += amountBombs;
     }
 
-    public void CheckEverything()
+    public void RunTests()
     {
-        /*
-            public Transform ammoDispenser;
-            public GameObject AmmoPrefab;
-            public Image lifeImage;
-            public Text coinText;
-        */
+        
         if (ammoDispenser == null)
         {
             UnityEditor.EditorApplication.isPlaying = false;

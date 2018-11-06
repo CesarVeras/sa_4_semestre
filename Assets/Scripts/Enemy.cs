@@ -13,7 +13,7 @@ public class Enemy : Entity
     public Behaviour behaviour;
     public float shootChance;
     public float shootSpeed;
-    
+
     // helpers
     private float shootHelper;
 
@@ -107,9 +107,9 @@ public class Enemy : Entity
     {
         if (lifes > 0)
         {
-            lifes--;
+            lifes -= damageTaken;
         }
-        if (lifes == 0)
+        if (lifes <= 0)
         {
             Die();
         }
