@@ -19,7 +19,8 @@ public abstract class Entity : MonoBehaviour
     // helper stats
     [HideInInspector] public float damageTaken;
     [HideInInspector] public bool canFire;
-    
+    [HideInInspector] public bool canMove;
+
     [HideInInspector] public Firing firingState;
 
     public abstract void MovementControl();

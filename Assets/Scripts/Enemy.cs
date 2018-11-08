@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class Enemy : Entity
 {
     // enums
-    public enum Behaviour { FollowPlayer, FleeFromPlayer, FleeAndRandom, Revive, Firing }
+    public enum Behavior { FollowPlayer, FleeFromPlayer, FleeAndRandom, Revive, Firing }
 
     // stats
     public float randomDistance = 5; // the radius for the enemy start to be random
-    public Behaviour behaviour;
+    public Behavior behavior;
     public float shootChance;
     public float shootSpeed;
 
@@ -52,31 +52,14 @@ public class Enemy : Entity
     // Update is called once per frame
     void Update()
     {
-        var difference = player.transform.position - transform.position;
-        switch (behaviour)
+        canMove = !CameraBehavior.isMoving;
+        if (canMove)
         {
-            case Behaviour.Revive:
-            case Behaviour.FollowPlayer:
-                rb.velocity = (player.transform.position - transform.position).normalized * speed;
-                break;
-            case Behaviour.FleeFromPlayer:
-                rb.velocity = (player.transform.position - transform.position).normalized * -speed;
-                break;
-            case Behaviour.Firing:
-                Shoot();
-                goto case Behaviour.FleeAndRandom;
-            case Behaviour.FleeAndRandom:
-                if (difference.magnitude > randomDistance)
-                {
-                    float x = Mathf.PerlinNoise(Time.time, seed1) * 2 - 1;
-                    float y = Mathf.PerlinNoise(Time.time, seed2) * 2 - 1;
-                    rb.velocity = new Vector2(x, y).normalized * speed;
-                }
-                else
-                {
-                    rb.velocity = (player.transform.position - transform.position).normalized * -speed;
-                }
-                break;
+            MovementControl();
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
         }
 
         ImageVida.fillAmount = (float)lifes / totalLifes;
@@ -95,12 +78,45 @@ public class Enemy : Entity
 
     public override void FiringControl()
     {
-
+        if (Time.time - shootHelper >= shootSpeed)
+        {
+            float chance = Random.value * 100;
+            if (chance <= shootChance)
+            {
+                print("Inimigo atirando");
+                shootHelper = Time.time;
+            }
+        }
     }
 
     public override void MovementControl()
     {
-
+        var difference = player.transform.position - transform.position;
+        switch (behavior)
+        {
+            case Behavior.Revive:
+            case Behavior.FollowPlayer:
+                rb.velocity = (player.transform.position - transform.position).normalized * speed;
+                break;
+            case Behavior.FleeFromPlayer:
+                rb.velocity = (player.transform.position - transform.position).normalized * -speed;
+                break;
+            case Behavior.Firing:
+                FiringControl();
+                goto case Behavior.FleeAndRandom;
+            case Behavior.FleeAndRandom:
+                if (difference.magnitude > randomDistance)
+                {
+                    float x = Mathf.PerlinNoise(Time.time, seed1) * 2 - 1;
+                    float y = Mathf.PerlinNoise(Time.time, seed2) * 2 - 1;
+                    rb.velocity = new Vector2(x, y).normalized * speed;
+                }
+                else
+                {
+                    rb.velocity = (player.transform.position - transform.position).normalized * -speed;
+                }
+                break;
+        }
     }
 
     public override void TakeDamage()
@@ -123,7 +139,7 @@ public class Enemy : Entity
         }
         Instantiate(coin, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
-        if (behaviour == Behaviour.Revive)
+        if (behavior == Behavior.Revive)
         {
             var respawnChance = Random.value * 100;
             if (respawnChance <= 20)
@@ -148,18 +164,5 @@ public class Enemy : Entity
         speed *= 4;
         damage *= 2;
         lifes = ((totalLifes / 5) <= 0) ? 1 : totalLifes / 5;
-    }
-
-    public void Shoot()
-    {
-        if (Time.time - shootHelper >= shootSpeed)
-        {
-            float chance = Random.value * 100;
-            if (chance <= shootChance)
-            {
-                print("Inimigo atirando");
-                shootHelper = Time.time;
-            }
-        }
     }
 }

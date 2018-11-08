@@ -58,7 +58,7 @@ public class Player : Entity
 
         lifeImage.fillAmount = lifes / totalLifes;
         coinText.text = money.ToString();
-        
+
         RunTests();
     }
 
@@ -66,7 +66,15 @@ public class Player : Entity
     void Update()
     {
         // moviment control
-        MovementControl();
+        canMove = !CameraBehavior.isMoving;
+        if (canMove)
+        {
+            MovementControl();
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
 
         // firing control
         FiringControl();
@@ -210,7 +218,7 @@ public class Player : Entity
 
     public void RunTests()
     {
-        
+
         if (ammoDispenser == null)
         {
             UnityEditor.EditorApplication.isPlaying = false;

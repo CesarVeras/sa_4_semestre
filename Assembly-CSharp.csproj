@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ammo.cs" />
+     <Compile Include="Assets\Scripts\CameraBehavior.cs" />
      <Compile Include="Assets\Scripts\CientificNumber.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />

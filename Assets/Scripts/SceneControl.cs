@@ -14,7 +14,8 @@ public class SceneControl : MonoBehaviour
     {
         if (enemyCount <= 0)
         {
-            OpenWinScreen();
+            // OpenWinScreen();
+        
         }
 
         if (PanelLose == null)
