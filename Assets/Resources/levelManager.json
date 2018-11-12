@@ -1,0 +1,21 @@
+{
+    "rooms": [{
+            "enemies": [],
+            "isCleared": false,
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "enemies": [],
+            "isCleared": false,
+            "position": {
+                "x": 0,
+                "y": 0
+            }
+        }
+    ],
+    "width": 0,
+    "height": 0
+}

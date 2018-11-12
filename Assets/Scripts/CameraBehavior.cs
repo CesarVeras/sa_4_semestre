@@ -15,12 +15,34 @@ public class CameraBehavior : MonoBehaviour
     public GameObject barriers;
     public SceneControl sceneControl;
 
+    public Vector2[] sides = new Vector2[] { Vector2.left, Vector2.right, Vector2.down, Vector2.up };
+
     void Start()
     {
         sceneControl = FindObjectOfType<SceneControl>();
         barriers = GameObject.Find("Barriers");
         HEIGHT = Camera.main.orthographicSize;
         WIDTH = HEIGHT * Camera.main.aspect;
+
+        for (int i = 0; i < 4; i++)
+        {
+            Transform side = barriers.transform.GetChild(i);
+            side.localPosition = sides[i] * (i < 2 ? WIDTH : HEIGHT);
+
+            BoxCollider2D c = side.GetComponent<BoxCollider2D>();
+            if (i < 2)
+            {
+                Vector2 v = c.size;
+                v.y = 2 * HEIGHT;
+                c.size = v;
+            }
+            else
+            {
+                Vector2 v = c.size;
+                v.x = 2 * WIDTH;
+                c.size = v;
+            }
+        }
     }
 
     void FixedUpdate()
