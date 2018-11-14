@@ -1,12 +1,5 @@
 {
-    "rooms": [{
-            "enemies": [],
-            "isCleared": false,
-            "position": {
-                "x": 0,
-                "y": 0
-            }
-        },
+    "rooms": [
         {
             "enemies": [],
             "isCleared": false,

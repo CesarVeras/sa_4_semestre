@@ -1,19 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
 
-    public class Room
-    {
-
-    }
-
     // Use this for initialization
     void Start()
     {
-        LoadJSON("levelManager.json");
+        // LoadJSON("levelManager.json");
     }
 
     // Update is called once per frame
@@ -22,11 +18,19 @@ public class LevelManager : MonoBehaviour
 
     }
 
-    void LoadJSON(string path)
+    void LoadJSON()
     {
-        path = path.Replace(".json", "");
-        string json = Resources.Load<TextAsset>(path).text;
-        print(json);
-        Room room = JsonUtility.FromJson<Room>(json);
+        //path = path.Replace(".json", "");
+        // string json = Resources.Load<TextAsset>(path).text;
+        // print(json);
+        // Data data = JsonUtility.FromJson<Data>(json);
+        // print(data);
+        // var path = Resources.Load<>();
     }
+}
+public class Data
+{
+    public Room[] rooms;
+    public float width;
+    public float height;
 }

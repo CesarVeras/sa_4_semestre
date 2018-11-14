@@ -138,6 +138,7 @@ public class Enemy : Entity
 
         }
         Instantiate(coin, transform.position, Quaternion.identity);
+        
         Destroy(this.gameObject);
         if (behavior == Behavior.Revive)
         {
