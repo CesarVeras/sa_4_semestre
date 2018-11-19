@@ -1,6 +1,3 @@
-###
-# Unity folders and files
-###
 Assets/AssetStoreTools*
 Build/
 Library/
@@ -8,14 +5,8 @@ LocalCache/
 Obj/
 Temp/
 UnityGenerated/
-# file on crash reports
 sysinfo.txt
-# Unity3D generated meta files
 *.pidb.meta
-
-###
-# VS/MD solution and project files
-###
 ExportedObj/
 *.booproj
 *.csproj
@@ -27,10 +18,6 @@ ExportedObj/
 *.userprefs
 *.pidb
 .DS_Store
-
-###
-# OS generated
-###
 .DS_Store
 .DS_Store?
 ._*
@@ -39,8 +26,4 @@ ExportedObj/
 Icon?
 ehthumbs.db
 Thumbs.db
-
-###
-# My ignores
-###
 *.zip
