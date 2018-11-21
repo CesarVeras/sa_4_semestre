@@ -138,7 +138,7 @@ public class Enemy : Entity
 
         }
         Instantiate(coin, transform.position, Quaternion.identity);
-        
+
         Destroy(this.gameObject);
         if (behavior == Behavior.Revive)
         {
@@ -149,7 +149,7 @@ public class Enemy : Entity
                 newEnemy.GetComponent<Enemy>().Revive(newEnemy);
             }
         }
-        FindObjectOfType<SceneControl>().DecreaseEnemyCount();
+        FindObjectOfType<MapManager>().DecreaseEnemyCount();
     }
 
     public void Revive(GameObject enemy)

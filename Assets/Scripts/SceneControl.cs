@@ -66,9 +66,4 @@ public class SceneControl : MonoBehaviour
     {
         PanelCredits.SetActive(visible);
     }
-
-    public void DecreaseEnemyCount()
-    {
-        enemyCount--;
-    }
 }
