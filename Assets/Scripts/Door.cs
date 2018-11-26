@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public MapManager mapScript;
-    public int doorToGo;
+    public Transform doorToGo;
 
     // Use this for initialization
     void Start()
@@ -23,7 +23,15 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            mapScript.GoToDoor(doorToGo);
+            if (doorToGo != null)
+            {
+                mapScript.GoToDoor(doorToGo);
+                mapScript.currentRoom = doorToGo.gameObject.transform.parent.gameObject;
+                Vector3 newPos = mapScript.currentRoom.transform.position;
+                var minimap = GameObject.Find("Minimap");
+                newPos.z = minimap.transform.position.z;
+                minimap.transform.position = newPos;
+            }
         }
     }
 }

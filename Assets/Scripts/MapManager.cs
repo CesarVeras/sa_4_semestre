@@ -6,8 +6,7 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
 
-    public GameObject[] rooms;
-    public Queue<GameObject> rooms_queue = new Queue<GameObject>();
+    public List<GameObject> rooms;
     public GameObject currentRoom;
     public int roomCounter;
     public int enemyCounter;
@@ -18,16 +17,11 @@ public class MapManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        foreach (GameObject r in rooms)
-        {
-            rooms_queue.Enqueue(r);
-            // print(r.name);
-        }
-        currentRoom = rooms_queue.Dequeue();
+        currentRoom = rooms[roomCounter];
         currentRoomScript = currentRoom.GetComponent<RoomScript>();
         enemyCounter = currentRoomScript.room.enemies.Length;
-        SpawnEnemy();
-        // print(GameObject.Find("Room 1").transform.Find("Wall D").name);
+        // SpawnEnemy();
+        currentRoomScript.room.isCleared = true;
     }
 
     // Update is called once per frame
@@ -54,17 +48,17 @@ public class MapManager : MonoBehaviour
 
     void NextRoom()
     {
-        if (rooms_queue.Count < 0)
-        {
-            return;
-        }
-        roomCounter++;
-        currentRoom = rooms_queue.Dequeue();
         currentRoomScript = currentRoom.GetComponent<RoomScript>();
         canLerp = true;
         lerpControl = 0;
         enemyCounter = currentRoomScript.room.enemies.Length;
-        SpawnEnemy();
+
+        currentRoomScript.room.isCleared = true;
+
+        if (!currentRoomScript.room.isCleared)
+        {
+            SpawnEnemy();
+        }
     }
 
     void MoveToCurrentRoom()
@@ -83,18 +77,15 @@ public class MapManager : MonoBehaviour
         currentRoomScript.SpawnEnemies();
     }
 
-    /*
-        0 - left
-        1 - right
-        2 - up
-        3 - down
-     */
-    public void GoToDoor(int index)
+    public void GoToDoor(Transform position)
     {
         if (Camera.main.GetComponent<MapManager>().currentRoomScript.room.isCleared)
         {
+            var Player = GameObject.Find("Player");
+            Player.transform.position = position.position;
+            Vector3 difference = Player.transform.position - currentRoom.transform.position;
+            Player.transform.position += difference.normalized * 2;
             NextRoom();
-            GameObject.Find("Player").transform.position = currentRoomScript.doors[index].transform.position;
         }
     }
 }

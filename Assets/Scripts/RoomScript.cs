@@ -7,6 +7,7 @@ public class RoomScript : MonoBehaviour
     public Room room;
     public GameObject[] walls;
     public GameObject[] doors;
+    public int roomNumber;
     private float minX;
     private float maxX;
     private float minY;
@@ -14,6 +15,7 @@ public class RoomScript : MonoBehaviour
 
     void Start()
     {
+        roomNumber = int.Parse(gameObject.name.Split(' ')[1]) - 1;
         walls = new GameObject[4];
         doors = new GameObject[4];
         GetWallsAndDoors();
@@ -43,5 +45,14 @@ public class RoomScript : MonoBehaviour
 
         minY = walls[2].transform.position.y - walls[2].GetComponent<BoxCollider2D>().bounds.extents.y;
         maxY = walls[3].transform.position.y + walls[3].GetComponent<BoxCollider2D>().bounds.extents.y;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Camera.main.GetComponent<MapManager>().roomCounter = roomNumber;
+        }
+
     }
 }
