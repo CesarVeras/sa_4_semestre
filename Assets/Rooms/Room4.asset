@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c425cc3227116498e69f578f97a5e1, type: 3}
+  m_Name: Room4
+  m_EditorClassIdentifier: 
+  enemies:
+  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114904168155052758, guid: 36983c0215066964cba504ea3480db4c, type: 2}
+  - {fileID: 114904168155052758, guid: 36983c0215066964cba504ea3480db4c, type: 2}
+  isCleared: 0

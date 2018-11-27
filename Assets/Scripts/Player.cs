@@ -21,6 +21,7 @@ public class Player : Entity
     private float timeHelper; // keeps track of the time between shots.
     private float iframeTimeHelper; // keeps track of the time between iframes. 
     private SceneControl sceneControl;
+    public bool debug;
 
     // gameobject
     public Transform ammoDispenser;
@@ -30,6 +31,8 @@ public class Player : Entity
 
     private GameObject newAmmo;
     private Ammo scriptAmmo;
+    public Joystick joystickMovement;
+    public Joystick joystickFiring;
 
 
     // Use this for initialization
@@ -84,6 +87,10 @@ public class Player : Entity
         {
             TakeDamage();
         }
+        if (lifeImage.fillAmount != lifes / totalLifes)
+        {
+            lifeImage.fillAmount = lifes / totalLifes;
+        }
     }
 
     private void CreateAmmo()
@@ -117,54 +124,121 @@ public class Player : Entity
 
     public override void FiringControl()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        float vertical = joystickFiring.Vertical;
+        float horizontal = joystickFiring.Horizontal;
+        if (Mathf.Abs(vertical) > Mathf.Abs(horizontal))
         {
-            firingState = Firing.FiringLeft;
-            CreateAmmo();
+            if (vertical > 0)
+            {
+                firingState = Firing.FiringUp;
+                CreateAmmo();
+            }
+            else
+            {
+                firingState = Firing.FiringDown;
+                CreateAmmo();
+            }
+
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Mathf.Abs(vertical) < Mathf.Abs(horizontal))
         {
-            firingState = Firing.FiringRight;
-            CreateAmmo();
+            if (horizontal > 0)
+            {
+                firingState = Firing.FiringRight;
+                CreateAmmo();
+            }
+            else
+            {
+                firingState = Firing.FiringLeft;
+                CreateAmmo();
+            }
+
         }
-        else if (Input.GetKey(KeyCode.UpArrow))
+
+
+        if (debug)
         {
-            firingState = Firing.FiringUp;
-            CreateAmmo();
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            firingState = Firing.FiringDown;
-            CreateAmmo();
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                firingState = Firing.FiringLeft;
+                CreateAmmo();
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                firingState = Firing.FiringRight;
+                CreateAmmo();
+            }
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                firingState = Firing.FiringUp;
+                CreateAmmo();
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                firingState = Firing.FiringDown;
+                CreateAmmo();
+            }
         }
     }
 
     public override void MovementControl()
     {
-        if (Input.GetKey(KeyCode.W))
+        float vertical = joystickMovement.Vertical;
+        float horizontal = joystickMovement.Horizontal;
+        if (vertical > 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, speed);
+            vertical = 1;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (vertical < 0)
         {
-            rb.velocity = new Vector2(rb.velocity.x, -speed);
+            vertical = -1;
         }
         else
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            vertical = 0;
         }
+        if (horizontal > 0)
+        {
+            horizontal = 1;
+        }
+        else if (horizontal < 0)
+        {
+            horizontal = -1;
+        }
+        else
+        {
+            horizontal = 0;
+        }
+        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
 
-        if (Input.GetKey(KeyCode.A))
+
+        if (debug)
         {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            if (Input.GetKey(KeyCode.W))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, speed);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -speed);
+            }
+            else
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
     }
 

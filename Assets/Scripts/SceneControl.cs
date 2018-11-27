@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneControl : MonoBehaviour
 {
     // panels
-    public GameObject PanelWin, PanelLose, PanelCredits;
+    public GameObject PanelWin, PanelLose, PanelCredits, Joystick;
     public int enemyCount;
 
     public void Update()
@@ -52,6 +52,7 @@ public class SceneControl : MonoBehaviour
         Time.timeScale = 1f;
         PanelWin.SetActive(true);
         PanelLose.SetActive(false);
+        Joystick.SetActive(false);
     }
 
     public void OpenLoseScreen()
@@ -59,6 +60,7 @@ public class SceneControl : MonoBehaviour
         Time.timeScale = 1f;
         PanelWin.SetActive(false);
         PanelLose.SetActive(true);
+        Joystick.SetActive(false);
 
     }
 

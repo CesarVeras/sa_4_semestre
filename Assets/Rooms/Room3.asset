@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c425cc3227116498e69f578f97a5e1, type: 3}
-  m_Name: Room0_0
+  m_Name: Room3
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 114973909473666178, guid: 85da35dd9b1011a469983b89e39d514e, type: 2}
   - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
   - {fileID: 114904168155052758, guid: 36983c0215066964cba504ea3480db4c, type: 2}
   - {fileID: 114635510333658356, guid: 6a1fa17b30ce32f4285eb4c94f29fd7b, type: 2}
-  isCleared: 0
+  isCleared: 1

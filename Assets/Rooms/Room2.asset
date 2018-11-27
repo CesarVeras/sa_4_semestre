@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c425cc3227116498e69f578f97a5e1, type: 3}
-  m_Name: Room0_1
+  m_Name: Room2
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 114973909473666178, guid: 85da35dd9b1011a469983b89e39d514e, type: 2}

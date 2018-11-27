@@ -20,15 +20,15 @@ public class MapManager : MonoBehaviour
         currentRoom = rooms[roomCounter];
         currentRoomScript = currentRoom.GetComponent<RoomScript>();
         enemyCounter = currentRoomScript.room.enemies.Length;
-        // SpawnEnemy();
-        currentRoomScript.room.isCleared = true;
+        foreach (var r in rooms)
+        {
+            r.GetComponent<RoomScript>().room.isCleared = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(currentRoom.name);
-        print(currentRoomScript.room.isCleared);
         if (currentRoom.transform.childCount == 12)
         {
             currentRoomScript.room.isCleared = true;
@@ -52,9 +52,6 @@ public class MapManager : MonoBehaviour
         canLerp = true;
         lerpControl = 0;
         enemyCounter = currentRoomScript.room.enemies.Length;
-
-        currentRoomScript.room.isCleared = true;
-
         if (!currentRoomScript.room.isCleared)
         {
             SpawnEnemy();
@@ -85,6 +82,11 @@ public class MapManager : MonoBehaviour
             Player.transform.position = position.position;
             Vector3 difference = Player.transform.position - currentRoom.transform.position;
             Player.transform.position += difference.normalized * 2;
+            currentRoom = position.gameObject.transform.parent.gameObject;
+            Vector3 newPos = currentRoom.transform.position;
+            var minimap = GameObject.Find("Minimap");
+            newPos.z = minimap.transform.position.z;
+            minimap.transform.position = newPos;
             NextRoom();
         }
     }
