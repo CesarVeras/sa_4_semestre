@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Ammo.cs" />
+     <Compile Include="Assets\Scripts\Boss.cs" />
+     <Compile Include="Assets\Scripts\BossAmmo.cs" />
      <Compile Include="Assets\Scripts\CameraBehavior.cs" />
      <Compile Include="Assets\Scripts\CientificNumber.cs" />
      <Compile Include="Assets\Scripts\Coin.cs" />
@@ -70,7 +72,9 @@
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\RoomScript.cs" />
      <Compile Include="Assets\Scripts\SceneControl.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
      <Compile Include="Assets\Scripts\TestManager.cs" />
+     <Compile Include="Assets\Scripts\WinExit.cs" />
      <Compile Include="Assets\Virtual Joystick Pack\Examples\2D Example\Player2DExample.cs" />
      <Compile Include="Assets\Virtual Joystick Pack\Scripts\Base\Joystick.cs" />
      <Compile Include="Assets\Virtual Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
@@ -319,10 +323,6 @@
  <Reference Include="Boo.Lang">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{AE350DD2-1837-D3B3-A7DA-D025775A5436}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

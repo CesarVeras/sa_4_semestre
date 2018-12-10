@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: Room4
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
-  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
-  - {fileID: 114972388731578732, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
-  - {fileID: 114904168155052758, guid: 36983c0215066964cba504ea3480db4c, type: 2}
-  - {fileID: 114904168155052758, guid: 36983c0215066964cba504ea3480db4c, type: 2}
-  isCleared: 0
+  - {fileID: 114607531670290126, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114607531670290126, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114607531670290126, guid: fa19ecf36dfc4a644a528b34b1078538, type: 2}
+  - {fileID: 114479645123763688, guid: f044518e48d5add4a99c70bc4d726320, type: 2}
+  - {fileID: 114648752987179548, guid: 9cfdb48d6ac35654da651c5e9ccd5fae, type: 2}
+  isCleared: 1

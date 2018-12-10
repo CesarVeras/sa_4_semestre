@@ -13,6 +13,7 @@ public class MapManager : MonoBehaviour
     public bool canLerp;
     public float lerpControl = 0;
     public RoomScript currentRoomScript;
+    public GameObject boss;
 
     // Use this for initialization
     void Start()
@@ -42,6 +43,13 @@ public class MapManager : MonoBehaviour
             if (lerpControl >= 1)
             {
                 canLerp = false;
+            }
+        }
+        if (roomCounter == 5)
+        {
+            if (boss.gameObject != null)
+            {
+                boss.SetActive(true);
             }
         }
     }

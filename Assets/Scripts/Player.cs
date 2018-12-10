@@ -62,6 +62,7 @@ public class Player : Entity
         lifeImage.fillAmount = lifes / totalLifes;
         coinText.text = money.ToString();
 
+        GetComponentInChildren<SoundManager>().PlayMusic();
         RunTests();
     }
 
@@ -103,6 +104,7 @@ public class Player : Entity
             scriptAmmo.firingRange = range;
             scriptAmmo.firingSpeed = shotSpeed;
             scriptAmmo.initialPosition = ammoDispenser.position;
+            
             switch (firingState)
             {
                 case Firing.FiringLeft:
@@ -185,11 +187,12 @@ public class Player : Entity
     {
         float vertical = joystickMovement.Vertical;
         float horizontal = joystickMovement.Horizontal;
-        if (vertical > 0)
+
+        if (vertical > 0.5)
         {
             vertical = 1;
         }
-        else if (vertical < 0)
+        else if (vertical < -0.5)
         {
             vertical = -1;
         }
@@ -197,11 +200,12 @@ public class Player : Entity
         {
             vertical = 0;
         }
-        if (horizontal > 0)
+
+        if (horizontal > 0.5)
         {
             horizontal = 1;
         }
-        else if (horizontal < 0)
+        else if (horizontal < -0.5)
         {
             horizontal = -1;
         }
@@ -209,6 +213,7 @@ public class Player : Entity
         {
             horizontal = 0;
         }
+
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
 
 
@@ -257,6 +262,23 @@ public class Player : Entity
                 sceneControl.OpenLoseScreen();
                 // Application.Quit();
                 // UnityEditor.EditorApplication.isPlaying = false;
+            }
+        }
+    }
+
+    public void TakeDamage(float amoutnDamage)
+    {
+        if (Time.time - iframeTimeHelper >= iframe)
+        {
+            if (lifes > 0)
+            {
+                lifes -= amoutnDamage;
+                iframeTimeHelper = Time.time;
+                lifeImage.fillAmount = lifes / totalLifes;
+            }
+            if (lifes <= 0)
+            {
+                sceneControl.OpenLoseScreen();
             }
         }
     }

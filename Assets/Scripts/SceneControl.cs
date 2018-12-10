@@ -7,15 +7,17 @@ using UnityEngine.SceneManagement;
 public class SceneControl : MonoBehaviour
 {
     // panels
-    public GameObject PanelWin, PanelLose, PanelCredits, Joystick;
+    public GameObject PanelWin, PanelLose, PanelCredits, PanelPause, Joystick, JoystickCanvas;
+    public Text winText;
     public int enemyCount;
+    public GameObject minimap;
 
     public void Update()
     {
         if (enemyCount <= 0)
         {
             // OpenWinScreen();
-        
+
         }
 
         if (PanelLose == null)
@@ -27,6 +29,8 @@ public class SceneControl : MonoBehaviour
         {
             PanelWin = GameObject.Find("PanelWin");
         }
+
+        minimap = GameObject.Find("Minimap Parent");
     }
 
     public void GoToMenu()
@@ -37,7 +41,7 @@ public class SceneControl : MonoBehaviour
 
     public void GoToGamePlay()
     {
-        SceneManager.LoadScene("gameplay");
+        SceneManager.LoadScene("gameplay_backup");
         Time.timeScale = 1f;
     }
 
@@ -50,9 +54,12 @@ public class SceneControl : MonoBehaviour
     public void OpenWinScreen()
     {
         Time.timeScale = 1f;
+        winText.text = "Parabéns, você salvou " + GameObject.Find("Player").GetComponent<Player>().money + " ovos de tartarugas!\n" + winText.text;
         PanelWin.SetActive(true);
         PanelLose.SetActive(false);
-        Joystick.SetActive(false);
+        JoystickCanvas.SetActive(false);
+        minimap.SetActive(false);
+
     }
 
     public void OpenLoseScreen()
@@ -60,12 +67,26 @@ public class SceneControl : MonoBehaviour
         Time.timeScale = 1f;
         PanelWin.SetActive(false);
         PanelLose.SetActive(true);
-        Joystick.SetActive(false);
-
+        JoystickCanvas.SetActive(false);
+        minimap.SetActive(false);
     }
 
     public void SetCreditsVisibility(bool visible)
     {
         PanelCredits.SetActive(visible);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        PanelPause.SetActive(true);
+        JoystickCanvas.SetActive(false);
+    }
+
+    public void Unpause()
+    {
+        Time.timeScale = 1f;
+        PanelPause.SetActive(false);
+        JoystickCanvas.SetActive(true);
     }
 }
